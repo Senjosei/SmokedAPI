@@ -23,6 +23,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Build
+      shell: pwsh
       # Build your program with the given configuration
       run: ${{github.workspace}}/build.ps1 64 release && ls
 
