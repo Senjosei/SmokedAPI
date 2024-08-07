@@ -25,7 +25,7 @@ jobs:
     - name: Build
       shell: pwsh
       # Build your program with the given configuration
-      run: ${{github.workspace}}/build.ps1 64 release && ls
+      run: ls && ${{github.workspace}}/build.ps1 64 release && ls
 
     # - name: Upload a Build Artifact
     #   uses: actions/upload-artifact@v4.3.6
