@@ -14,7 +14,7 @@ AppDlcNameMap get_cached_apps() noexcept {
     }
 }
 
-namespace smoke_api::app_cache {
+namespace smoked_api::app_cache {
 
     Vector<DLC> get_dlcs(AppId_t app_id) noexcept {
         try {

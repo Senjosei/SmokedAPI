@@ -1,5 +1,5 @@
 #include <steam_impl/steam_user.hpp>
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <koalabox/logger.hpp>
 
 namespace steam_user {
@@ -17,7 +17,7 @@ namespace steam_user {
             return result;
         }
 
-        const auto has_license = smoke_api::config::is_dlc_unlocked(
+        const auto has_license = smoked_api::config::is_dlc_unlocked(
             appId, dlcId, [&]() {
                 return result == k_EUserHasLicenseResultHasLicense;
             }

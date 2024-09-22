@@ -2,7 +2,7 @@
 #include <store_mode/vstdlib/vstdlib.hpp>
 #include <store_mode/store_cache.hpp>
 #include <store_mode/store_api.hpp>
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <build_config.h>
 #include <koalabox/dll_monitor.hpp>
 #include <koalabox/logger.hpp>
@@ -22,7 +22,7 @@ namespace store {
         };
 
         // First try to read a local config override
-        const auto& kg_config = smoke_api::config::instance.store_config;
+        const auto& kg_config = smoked_api::config::instance.store_config;
         if (!kg_config.is_null()) {
             try {
                 config = kg_config.get<decltype(config)>();
@@ -72,10 +72,10 @@ namespace store {
                 ::MessageBox(
                     nullptr,
                     TEXT(
-                        "SmokeAPI has downloaded an updated config for Store mode. "
+                        "SmokedAPI has downloaded an updated config for Store mode. "
                         "Please restart Steam in order to apply the new Store config. "
                     ),
-                    TEXT("SmokeAPI - Store"),
+                    TEXT("SmokedAPI - Store"),
                     MB_SETFOREGROUND | MB_ICONINFORMATION | MB_OK
                 );
             } catch (const Exception& ex) {
@@ -95,7 +95,7 @@ namespace store {
 
                         globals::vstdlib_module = module_handle;
 
-                        if (smoke_api::config::instance.unlock_family_sharing) {
+                        if (smoked_api::config::instance.unlock_family_sharing) {
                             DETOUR_VSTDLIB(Coroutine_Create)
                         }
                     } else if (name < equals > STEAMCLIENT_DLL) {
@@ -119,11 +119,11 @@ namespace store {
         );
 
         NEW_THREAD({
-            koalabox::ipc::init_pipe_server("smokeapi.store.steam", [](const koalabox::ipc::Request& request) {
+            koalabox::ipc::init_pipe_server("smokedapi.store.steam", [](const koalabox::ipc::Request& request) {
                 koalabox::ipc::Response response;
 
                 if (request.name < equals > "config::reload") {
-                    smoke_api::config::ReloadConfig();
+                    smoked_api::config::ReloadConfig();
                     response.success = true;
                 } else {
                     response.success = false;

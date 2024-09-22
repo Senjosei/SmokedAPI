@@ -9,11 +9,11 @@ jobs:
       contents: write
     with:
       modules: >-
-        ["SmokeAPI"]
+        ["SmokedAPI"]
 
       zip_command: >
         zip -j $ZIP_NAME
         artifacts/*/*.dll
-        res/SmokeAPI.config.json
+        res/SmokedAPI.config.json
 
       config: Release

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(SmokeAPI VERSION 2.0.5)
+project(SmokedAPI VERSION 2.0.5)
 
 include(KoalaBox/cmake/KoalaBox.cmake)
 
@@ -34,7 +34,7 @@ configure_linker_exports(
 configure_build_config(extra_build_config)
 
 set(
-    SMOKE_API_SOURCES
+    SMOKED_API_SOURCES
     src/common/app_cache.cpp
     src/common/app_cache.hpp
     src/common/steamclient_exports.cpp
@@ -55,10 +55,10 @@ set(
     src/game_mode/virtuals/isteaminventory.cpp
     src/game_mode/virtuals/isteamuser.cpp
     src/game_mode/virtuals/steam_api_virtuals.hpp
-    src/smoke_api/config.cpp
-    src/smoke_api/config.hpp
-    src/smoke_api/smoke_api.cpp
-    src/smoke_api/smoke_api.hpp
+    src/smoked_api/config.cpp
+    src/smoked_api/config.hpp
+    src/smoked_api/smoked_api.cpp
+    src/smoked_api/smoked_api.hpp
     src/steam_impl/steam_apps.cpp
     src/steam_impl/steam_apps.hpp
     src/steam_impl/steam_client.cpp
@@ -76,7 +76,7 @@ set(
 # Include store_mode mode sources only in 32-bit builds
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(
-        SMOKE_API_SOURCES ${SMOKE_API_SOURCES}
+        SMOKED_API_SOURCES ${SMOKED_API_SOURCES}
         src/store_mode/steamclient/client_app_manager.cpp
         src/store_mode/steamclient/client_apps.cpp
         src/store_mode/steamclient/client_inventory.cpp
@@ -95,10 +95,10 @@ if (CMAKE_SIZEOF_VOID_P EQUAL 4)
     )
 endif ()
 
-add_library(SmokeAPI SHARED ${SMOKE_API_SOURCES} ${VERSION_RESOURCE})
+add_library(SmokedAPI SHARED ${SMOKED_API_SOURCES} ${VERSION_RESOURCE})
 
 configure_output_name(${STEAMAPI_DLL})
 
 configure_include_directories()
 
-target_link_libraries(SmokeAPI PRIVATE KoalaBox)
+target_link_libraries(SmokedAPI PRIVATE KoalaBox)

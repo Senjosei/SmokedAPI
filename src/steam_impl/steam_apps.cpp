@@ -1,7 +1,7 @@
 #include <steam_impl/steam_apps.hpp>
 #include <steam_impl/steam_impl.hpp>
 #include <common/app_cache.hpp>
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <koalabox/logger.hpp>
 #include <koalabox/util.hpp>
 #include <core/types.hpp>
@@ -49,7 +49,7 @@ namespace steam_apps {
             aggregated_dlcs < append > source;
         };
 
-        append_dlcs(smoke_api::config::get_extra_dlcs(app_id), "local config");
+        append_dlcs(d_api::config::get_extra_dlcs(app_id), "local config");
 
         const auto github_dlcs_opt = api::fetch_dlcs_from_github(app_id);
         if (github_dlcs_opt) {
@@ -64,13 +64,13 @@ namespace steam_apps {
         if (github_dlcs_opt && steam_dlcs_opt) {
             fully_fetched.insert(app_id);
         } else {
-            append_dlcs(smoke_api::app_cache::get_dlcs(app_id), "disk cache");
+            append_dlcs(smoked_api::app_cache::get_dlcs(app_id), "disk cache");
         }
 
         // Cache DLCs in memory and cache for future use
         app_dlcs[app_id] = aggregated_dlcs;
 
-        smoke_api::app_cache::save_dlcs(app_id, aggregated_dlcs);
+        smoked_api::app_cache::save_dlcs(app_id, aggregated_dlcs);
     }
 
     bool IsDlcUnlocked(
@@ -80,7 +80,7 @@ namespace steam_apps {
         const Function<bool()>& original_function
     ) {
         try {
-            const auto unlocked = smoke_api::config::is_dlc_unlocked(app_id, dlc_id, original_function);
+            const auto unlocked = smoked_api::config::is_dlc_unlocked(app_id, dlc_id, original_function);
 
             LOG_INFO("{} -> {}DLC ID: {:>8}, Unlocked: {}", function_name, get_app_id_log(app_id), dlc_id, unlocked)
 
@@ -144,7 +144,7 @@ namespace steam_apps {
             const auto inject_dlc = [&](const DLC& dlc) {
                 // Fill the output pointers
                 *pDlcId = dlc.get_id();
-                *pbAvailable = smoke_api::config::is_dlc_unlocked(
+                *pbAvailable = smoked_api::config::is_dlc_unlocked(
                     app_id, *pDlcId, [&]() {
                         return is_originally_unlocked(*pDlcId);
                     }
@@ -171,7 +171,7 @@ namespace steam_apps {
             const auto success = original_function();
 
             if (success) {
-                *pbAvailable = smoke_api::config::is_dlc_unlocked(
+                *pbAvailable = smoked_api::config::is_dlc_unlocked(
                     app_id, *pDlcId, [&]() { return *pbAvailable; }
                 );
                 print_dlc_info("original");

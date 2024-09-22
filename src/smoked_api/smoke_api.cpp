@@ -1,6 +1,6 @@
-#include <smoke_api/smoke_api.hpp>
+#include <smoked_api/smoked_api.hpp>
 #include <build_config.h>
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <core/globals.hpp>
 #include <core/paths.hpp>
 #include <common/steamclient_exports.hpp>
@@ -74,7 +74,7 @@ bool is_valve_steam(const String& exe_name) noexcept {
     }
 }
 
-namespace smoke_api {
+namespace smoked_api {
 
     void init(HMODULE module_handle) {
         try {
@@ -82,7 +82,7 @@ namespace smoke_api {
 
             koalabox::globals::init_globals(module_handle, PROJECT_NAME);
 
-            globals::smokeapi_handle = module_handle;
+            globals::smokedapi_handle = module_handle;
 
             config::init_config();
 
@@ -99,7 +99,7 @@ namespace smoke_api {
 
             LOG_DEBUG("Process name: '{}' [{}-bit]", exe_name, BITNESS)
 
-            if (koalabox::hook::is_hook_mode(globals::smokeapi_handle, STEAMAPI_DLL)) {
+            if (koalabox::hook::is_hook_mode(globals::smokedapi_handle, STEAMAPI_DLL)) {
                 koalabox::hook::init(true);
 
                 if (is_valve_steam(exe_name)) {

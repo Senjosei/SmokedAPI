@@ -1,6 +1,6 @@
 #pragma once
 
-namespace smoke_api {
+namespace smoked_api {
 
     void init(HMODULE module_handle);
 

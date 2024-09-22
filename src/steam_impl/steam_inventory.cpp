@@ -1,5 +1,5 @@
 #include <steam_impl/steam_inventory.hpp>
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <koalabox/logger.hpp>
 
 namespace steam_inventory {
@@ -52,11 +52,11 @@ namespace steam_inventory {
         )
 
         static uint32_t original_count = 0;
-        const auto injected_count = smoke_api::config::instance.extra_inventory_items.size();
+        const auto injected_count = smoked_api::config::instance.extra_inventory_items.size();
 
         // Automatically get inventory items from steam
         static Vector<SteamItemDef_t> auto_inventory_items;
-        if (smoke_api::config::instance.auto_inject_inventory) {
+        if (smoked_api::config::instance.auto_inject_inventory) {
             CALL_ONCE({
                 uint32_t count = 0;
                 if (get_item_definition_ids(nullptr, &count)) {
@@ -102,7 +102,7 @@ namespace steam_inventory {
 
             for (int i = 0; i < injected_count; i++) {
                 auto& item = pOutItemsArray[original_count + auto_injected_count + i];
-                const auto item_def_id = smoke_api::config::instance.extra_inventory_items[i];
+                const auto item_def_id = smoked_api::config::instance.extra_inventory_items[i];
 
                 item = new_item(item_def_id);
 

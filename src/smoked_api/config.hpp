@@ -2,7 +2,7 @@
 
 #include <core/types.hpp>
 
-namespace smoke_api::config {
+namespace smoked_api::config {
 
     enum class AppStatus {
         UNDEFINED,

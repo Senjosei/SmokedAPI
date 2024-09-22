@@ -1,10 +1,10 @@
-#include <smoke_api/config.hpp>
+#include <smoked_api/config.hpp>
 #include <core/paths.hpp>
 #include <koalabox/util.hpp>
 #include <koalabox/io.hpp>
 #include <koalabox/logger.hpp>
 
-namespace smoke_api::config {
+namespace smoked_api::config {
     Config instance; // NOLINT(cert-err58-cpp)
 
     // TODO: Refactor to Koalabox
@@ -20,7 +20,7 @@ namespace smoke_api::config {
                 LOG_DEBUG("Parsed config:\n{}", Json(instance).dump(2))
             } catch (const Exception& e) {
                 const auto message = fmt::format("Error parsing config file: {}", e.what());
-                koalabox::util::error_box("SmokeAPI Error", message);
+                koalabox::util::error_box("SmokedAPI Error", message);
             }
         }
     }
