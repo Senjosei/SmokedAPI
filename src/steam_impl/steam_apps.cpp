@@ -49,7 +49,7 @@ namespace steam_apps {
             aggregated_dlcs < append > source;
         };
 
-        append_dlcs(d_api::config::get_extra_dlcs(app_id), "local config");
+        append_dlcs(smoked_api::config::get_extra_dlcs(app_id), "local config");
 
         const auto github_dlcs_opt = api::fetch_dlcs_from_github(app_id);
         if (github_dlcs_opt) {
